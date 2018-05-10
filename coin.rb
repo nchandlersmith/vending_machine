@@ -1,4 +1,5 @@
 class Coin
+  
   def initialize(diameterIn, massIn)
     @diameter = diameterIn
     @mass = massIn
