@@ -18,4 +18,9 @@ class TestVendingMachine < Test::Unit::TestCase
     assert_equal("INSERT COIN", @vending_machine.checkDisplay())
   end
 
+  def test_VendingMachineAcceptQuarter
+    @vending_machine.acceptCoin(@quarter)
+    assert_equal("0.25", @vending_machine.checkDisplay())
+  end
+
 end
