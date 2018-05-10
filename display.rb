@@ -8,4 +8,8 @@ class Display
     @text
   end
 
+  def setDisplayText(textIn)
+    @text = textIn
+  end
+
 end
