@@ -20,17 +20,17 @@ class TestVendingMachine < Test::Unit::TestCase
 
   def test_VendingMachineAcceptCoinQuarter
     @vending_machine.acceptCoin(@quarter)
-    assert_equal("0.25", @vending_machine.checkDisplay())
+    assert_equal("$ 0.25", @vending_machine.checkDisplay())
   end
 
   def test_VendingMachineAcceptCoinDime
     @vending_machine.acceptCoin(@dime)
-    assert_equal("0.10", @vending_machine.checkDisplay())
+    assert_equal("$ 0.10", @vending_machine.checkDisplay())
   end
 
   def test_VendingMachineAcceptCoinNickel
     @vending_machine.acceptCoin(@nickel)
-    assert_equal("0.05", @vending_machine.checkDisplay())
+    assert_equal("$ 0.05", @vending_machine.checkDisplay())
   end
 
 end

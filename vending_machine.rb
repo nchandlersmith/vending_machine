@@ -25,7 +25,7 @@ class VendingMachine
     else
     end
     cashOnHand = @numberOfNickels * 0.05 + @numberOfDimes * 0.1 + @numberOfQuarters * 0.25
-    @display.setDisplayText("%0.2f" % [cashOnHand])
+    @display.setDisplayText("\$ %0.2f" % [cashOnHand])
   end
 
 end
