@@ -28,4 +28,9 @@ class TestVendingMachine < Test::Unit::TestCase
     assert_equal("0.10", @vending_machine.checkDisplay())
   end
 
+  def test_VendingMachineAcceptCoinNickel
+    @vending_machine.acceptCoin(@nickel)
+    assert_equal("0.05", @vending_machine.checkDisplay())
+  end
+
 end

@@ -7,6 +7,7 @@ class VendingMachine
     @display = displayObject
     @numberOfQuarters = 0
     @numberOfDimes = 0
+    @numberOfNickels = 0
   end
 
   def checkDisplay()
@@ -19,9 +20,11 @@ class VendingMachine
       @numberOfQuarters += 1
     when 17.91
       @numberOfDimes += 1
+    when 21.21
+      @numberOfNickels += 1
     else
     end
-    cashOnHand = @numberOfDimes * 0.1 + @numberOfQuarters * 0.25
+    cashOnHand = @numberOfNickels * 0.05 + @numberOfDimes * 0.1 + @numberOfQuarters * 0.25
     @display.setDisplayText("%0.2f" % [cashOnHand])
   end
 
