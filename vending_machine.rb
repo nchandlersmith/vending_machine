@@ -11,7 +11,14 @@ class VendingMachine
   end
 
   def checkDisplay()
-    @display.getDisplayText()
+    if @display.getDisplayText() == "THANK YOU"
+      textOut = "THANK YOU"
+      @display.setDisplayText("INSERT COIN")
+    else
+      textOut = @display.getDisplayText()
+    end
+
+    textOut
   end
 
   def acceptCoin(coinObject)
@@ -25,12 +32,18 @@ class VendingMachine
     else
       # Do nothing. Invalid coin entered and will be placed in return.
     end
+
     cashOnHand = @numberOfNickels * 0.05 + @numberOfDimes * 0.1 + @numberOfQuarters * 0.25
+
     if cashOnHand > 0
       @display.setDisplayText("\$ %0.2f" % [cashOnHand])
     else
       @display.setDisplayText("INSERT COIN")
     end
+  end
+
+  def colaButtonPressed()
+    @display.setDisplayText("THANK YOU")
   end
 
 end
