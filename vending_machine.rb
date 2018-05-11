@@ -6,6 +6,7 @@ class VendingMachine
   def initialize(displayObject)
     @display = displayObject
     @numberOfQuarters = 0
+    @numberOfDimes = 0
   end
 
   def checkDisplay()
@@ -13,17 +14,15 @@ class VendingMachine
   end
 
   def acceptCoin(coinObject)
-    # just use diameter for now
-    # extend to mass for improved fake coin detection
     case coinObject.getDiameter()
     when 24.26
       @numberOfQuarters += 1
-      # cashOnHand should be a module call
-      cashOnHand = @numberOfQuarters * 0.25
-      @display.setDisplayText("#{cashOnHand}")
+    when 17.91
+      @numberOfDimes += 1
     else
     end
+    cashOnHand = @numberOfDimes * 0.1 + @numberOfQuarters * 0.25
+    @display.setDisplayText("%0.2f" % [cashOnHand])
   end
-
 
 end

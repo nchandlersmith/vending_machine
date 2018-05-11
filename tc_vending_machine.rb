@@ -14,13 +14,18 @@ class TestVendingMachine < Test::Unit::TestCase
     @vending_machine = VendingMachine.new(@display)
   end
 
-  def test_VendingMachineDisplayNoCoinsInserted
+  def test_VendingMachineAcceptCoinNoCoinsInserted
     assert_equal("INSERT COIN", @vending_machine.checkDisplay())
   end
 
-  def test_VendingMachineAcceptQuarter
+  def test_VendingMachineAcceptCoinQuarter
     @vending_machine.acceptCoin(@quarter)
     assert_equal("0.25", @vending_machine.checkDisplay())
+  end
+
+  def test_VendingMachineAcceptCoinDime
+    @vending_machine.acceptCoin(@dime)
+    assert_equal("0.10", @vending_machine.checkDisplay())
   end
 
 end
