@@ -23,9 +23,14 @@ class VendingMachine
     when 21.21
       @numberOfNickels += 1
     else
+      # Do nothing. Invalid coin entered and will be placed in return.
     end
     cashOnHand = @numberOfNickels * 0.05 + @numberOfDimes * 0.1 + @numberOfQuarters * 0.25
-    @display.setDisplayText("\$ %0.2f" % [cashOnHand])
+    if cashOnHand > 0
+      @display.setDisplayText("\$ %0.2f" % [cashOnHand])
+    else
+      @display.setDisplayText("INSERT COIN")
+    end
   end
 
 end
