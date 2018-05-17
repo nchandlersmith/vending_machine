@@ -53,6 +53,14 @@ class TestVendingMachine < Test::Unit::TestCase
     assert_equal("$ 0.25", @vending_machine.checkDisplay())
     @vending_machine.colaButtonPressed()
     assert_equal("PRICE $1.00", @vending_machine.checkDisplay())
+    for i in 2..4
+      @vending_machine.acceptCoin(@quarter)
+      assert_equal("\$ %0.2f" % [i * 0.25], @vending_machine.checkDisplay())
+    end
+    @vending_machine.colaButtonPressed()
+    assert_equal("THANK YOU", @vending_machine.checkDisplay())
+    assert_equal("INSERT COIN", @vending_machine.checkDisplay())
+
   end
 
 end
