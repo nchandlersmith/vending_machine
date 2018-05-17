@@ -60,7 +60,6 @@ class TestVendingMachine < Test::Unit::TestCase
     @vending_machine.colaButtonPressed()
     assert_equal("THANK YOU", @vending_machine.checkDisplay())
     assert_equal("INSERT COIN", @vending_machine.checkDisplay())
-
   end
 
 end
