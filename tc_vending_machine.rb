@@ -20,17 +20,17 @@ class TestVendingMachine < Test::Unit::TestCase
 
   def test_VendingMachineAcceptCoinQuarter
     @vending_machine.acceptCoin(@quarter)
-    assert_equal("$ 0.25", @vending_machine.checkDisplay())
+    assert_equal("$0.25", @vending_machine.checkDisplay())
   end
 
   def test_VendingMachineAcceptCoinDime
     @vending_machine.acceptCoin(@dime)
-    assert_equal("$ 0.10", @vending_machine.checkDisplay())
+    assert_equal("$0.10", @vending_machine.checkDisplay())
   end
 
   def test_VendingMachineAcceptCoinNickel
     @vending_machine.acceptCoin(@nickel)
-    assert_equal("$ 0.05", @vending_machine.checkDisplay())
+    assert_equal("$0.05", @vending_machine.checkDisplay())
   end
 
   def test_VendingMachineAcceptCoinPenny
@@ -41,7 +41,7 @@ class TestVendingMachine < Test::Unit::TestCase
   def test_VendingMachineSelectProductDispenseCola
     for i in 1..4
       @vending_machine.acceptCoin(@quarter)
-      assert_equal("\$ %0.2f" % [i * 0.25], @vending_machine.checkDisplay())
+      assert_equal("\$%0.2f" % [i * 0.25], @vending_machine.checkDisplay())
     end
     @vending_machine.colaButtonPressed()
     assert_equal("THANK YOU", @vending_machine.checkDisplay())
@@ -50,12 +50,12 @@ class TestVendingMachine < Test::Unit::TestCase
 
   def test_VendingMachineSelectProductDispenseColaNotEnoughMoney
     @vending_machine.acceptCoin(@quarter)
-    assert_equal("$ 0.25", @vending_machine.checkDisplay())
+    assert_equal("$0.25", @vending_machine.checkDisplay())
     @vending_machine.colaButtonPressed()
     assert_equal("PRICE $1.00", @vending_machine.checkDisplay())
     for i in 2..4
       @vending_machine.acceptCoin(@quarter)
-      assert_equal("\$ %0.2f" % [i * 0.25], @vending_machine.checkDisplay())
+      assert_equal("\$%0.2f" % [i * 0.25], @vending_machine.checkDisplay())
     end
     @vending_machine.colaButtonPressed()
     assert_equal("THANK YOU", @vending_machine.checkDisplay())

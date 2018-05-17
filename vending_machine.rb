@@ -37,7 +37,7 @@ class VendingMachine
     @cashOnHand = @numberOfNickels * 0.05 + @numberOfDimes * 0.1 + @numberOfQuarters * 0.25
 
     if @cashOnHand > 0
-      @display.setDisplayText("\$ %0.2f" % [@cashOnHand])
+      @display.setDisplayText("\$%0.2f" % [@cashOnHand])
     else
       @display.setDisplayText("INSERT COIN")
     end
