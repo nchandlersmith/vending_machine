@@ -26,7 +26,7 @@ class TestVendingMachine < Test::Unit::TestCase
     end
   end
 
-  def verifyDisplayText()
+  def verifyDisplayTextAfterCoinInserted()
     if @amountMoneyAccepted == 0
       assert_equal("INSERT COIN", @vending_machine.checkDisplay())
     else
@@ -37,12 +37,12 @@ class TestVendingMachine < Test::Unit::TestCase
   def insertCoinAndTestDisplay(coinObject)
     @vending_machine.acceptCoin(coinObject)
     updateAmountMoneyAccepted(coinObject)
-    verifyDisplayText()
+    verifyDisplayTextAfterCoinInserted()
   end
 
   # Tests start here
   def test_VendingMachineAcceptCoinNoCoinsInserted
-    verifyDisplayText()
+    assert_equal("INSERT COIN", @vending_machine.checkDisplay())
   end
 
   def test_VendingMachineAcceptCoinQuarter
@@ -81,13 +81,11 @@ class TestVendingMachine < Test::Unit::TestCase
   end
 
   def test_VendingMachineSelectProductDispenseColaAfterPriceCheck
-    @vending_machine.acceptCoin(@quarter)
-    assert_equal("$0.25", @vending_machine.checkDisplay())
+    insertCoinAndTestDisplay(@quarter)
     @vending_machine.colaButtonPressed()
     assert_equal("PRICE $1.00", @vending_machine.checkDisplay())
     for i in 2..4
-      @vending_machine.acceptCoin(@quarter)
-      assert_equal("\$%0.2f" % [i * 0.25], @vending_machine.checkDisplay())
+      insertCoinAndTestDisplay(@quarter)
     end
     @vending_machine.colaButtonPressed()
     assert_equal("THANK YOU", @vending_machine.checkDisplay())
@@ -95,34 +93,28 @@ class TestVendingMachine < Test::Unit::TestCase
   end
 
   def test_VendingMachineSelectProductDispenseChips
-    @vending_machine.acceptCoin(@quarter)
-    @vending_machine.acceptCoin(@quarter)
+    insertCoinAndTestDisplay(@quarter)
+    insertCoinAndTestDisplay(@quarter)
     @vending_machine.chipsButtonPressed()
     assert_equal("THANK YOU", @vending_machine.checkDisplay())
     assert_equal("INSERT COIN", @vending_machine.checkDisplay())
   end
 
   def test_VendingMachineSelectProductDispenseChipsAfterPriceCheck
-    @vending_machine.acceptCoin(@quarter)
-    assert_equal("$0.25", @vending_machine.checkDisplay())
+    insertCoinAndTestDisplay(@quarter)
     @vending_machine.chipsButtonPressed()
     assert_equal("PRICE $0.50", @vending_machine.checkDisplay())
-    @vending_machine.acceptCoin(@quarter)
-    assert_equal("$0.50", @vending_machine.checkDisplay())
+    insertCoinAndTestDisplay(@quarter)
     @vending_machine.chipsButtonPressed()
     assert_equal("THANK YOU", @vending_machine.checkDisplay())
     assert_equal("INSERT COIN", @vending_machine.checkDisplay())
   end
 
   def test_VendingMachineSelectProductDispenseCandy
-    @vending_machine.acceptCoin(@quarter)
-    assert_equal("$0.25", @vending_machine.checkDisplay())
-    @vending_machine.acceptCoin(@quarter)
-    assert_equal("$0.50", @vending_machine.checkDisplay())
-    @vending_machine.acceptCoin(@dime)
-    assert_equal("$0.60", @vending_machine.checkDisplay())
-    @vending_machine.acceptCoin(@nickel)
-    assert_equal("$0.65", @vending_machine.checkDisplay())
+    insertCoinAndTestDisplay(@quarter)
+    insertCoinAndTestDisplay(@quarter)
+    insertCoinAndTestDisplay(@dime)
+    insertCoinAndTestDisplay(@nickel)
     @vending_machine.candyButtonPressed()
     assert_equal("THANK YOU", @vending_machine.checkDisplay())
     assert_equal("INSERT COIN", @vending_machine.checkDisplay())
