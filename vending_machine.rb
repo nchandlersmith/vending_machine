@@ -51,6 +51,10 @@ class VendingMachine
     priceCheck(@display, 0.5, @cashOnHand)
   end
 
+  def candyButtonPressed()
+    priceCheck(@display, 0.65, @cashOnHand)
+  end
+
 private
 
     def priceCheck(displayObject, price, deposit)
