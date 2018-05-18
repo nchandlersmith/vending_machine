@@ -12,36 +12,68 @@ class TestVendingMachine < Test::Unit::TestCase
     @quarter = Quarter.new()
     @display = Display.new()
     @vending_machine = VendingMachine.new(@display)
+    @amountMoneyAccepted = 0
   end
 
+  # Helper functions
+  def updateAmountMoneyAccepted(coinObject)
+    if coinObject.is_a?(Quarter)
+      @amountMoneyAccepted += 0.25
+    elsif coinObject.is_a?(Dime)
+      @amountMoneyAccepted += 0.10
+    elsif coinObject.is_a?(Nickel)
+      @amountMoneyAccepted += 0.05
+    end
+  end
+
+  def verifyDisplayText()
+    if @amountMoneyAccepted == 0
+      assert_equal("INSERT COIN", @vending_machine.checkDisplay())
+    else
+      assert_equal("\$%0.2f" % [@amountMoneyAccepted], @vending_machine.checkDisplay)
+    end
+  end
+
+  def insertCoinAndTestDisplay(coinObject)
+    @vending_machine.acceptCoin(coinObject)
+    updateAmountMoneyAccepted(coinObject)
+    verifyDisplayText()
+  end
+
+  # Tests start here
   def test_VendingMachineAcceptCoinNoCoinsInserted
-    assert_equal("INSERT COIN", @vending_machine.checkDisplay())
+    verifyDisplayText()
   end
 
   def test_VendingMachineAcceptCoinQuarter
-    @vending_machine.acceptCoin(@quarter)
-    assert_equal("$0.25", @vending_machine.checkDisplay())
+    insertCoinAndTestDisplay(@quarter)
   end
 
   def test_VendingMachineAcceptCoinDime
-    @vending_machine.acceptCoin(@dime)
-    assert_equal("$0.10", @vending_machine.checkDisplay())
+    insertCoinAndTestDisplay(@dime)
   end
 
   def test_VendingMachineAcceptCoinNickel
-    @vending_machine.acceptCoin(@nickel)
-    assert_equal("$0.05", @vending_machine.checkDisplay())
+    insertCoinAndTestDisplay(@nickel)
   end
 
-  def test_VendingMachineAcceptCoinPenny
-    @vending_machine.acceptCoin(@penny)
-    assert_equal("INSERT COIN", @vending_machine.checkDisplay())
+  def test_VendingMachineRejectPenny
+    insertCoinAndTestDisplay(@penny)
+  end
+
+  def test_VendingMachineRejectPenniesAcceptValidCoins
+    insertCoinAndTestDisplay(@penny)
+    insertCoinAndTestDisplay(@quarter)
+    insertCoinAndTestDisplay(@penny)
+    insertCoinAndTestDisplay(@dime)
+    insertCoinAndTestDisplay(@penny)
+    insertCoinAndTestDisplay(@nickel)
+    insertCoinAndTestDisplay(@penny)
   end
 
   def test_VendingMachineSelectProductDispenseCola
     for i in 1..4
-      @vending_machine.acceptCoin(@quarter)
-      assert_equal("\$%0.2f" % [i * 0.25], @vending_machine.checkDisplay())
+      insertCoinAndTestDisplay(@quarter)
     end
     @vending_machine.colaButtonPressed()
     assert_equal("THANK YOU", @vending_machine.checkDisplay())
