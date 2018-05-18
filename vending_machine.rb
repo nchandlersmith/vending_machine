@@ -44,19 +44,21 @@ class VendingMachine
   end
 
   def colaButtonPressed()
-    if @cashOnHand < 1
-      @display.setDisplayText("PRICE $1.00")
-    else
-      @display.setDisplayText("THANK YOU")
-    end
+    priceCheck(@display, 1.0, @cashOnHand)
   end
 
   def chipsButtonPressed()
-    if @cashOnHand < 0.5
-      @display.setDisplayText("PRICE $0.50")
-    else
-      @display.setDisplayText("THANK YOU")
-    end
+    priceCheck(@display, 0.5, @cashOnHand)
   end
+
+private
+
+    def priceCheck(displayObject, price, deposit)
+      if deposit < price
+        displayObject.setDisplayText("PRICE \$%0.2f" % [price])
+      else
+        displayObject.setDisplayText("THANK YOU")
+      end
+    end
 
 end
