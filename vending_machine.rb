@@ -34,7 +34,9 @@ class VendingMachine
       # Do nothing. Invalid coin entered and will be placed in return.
     end
 
-    @cashOnHand = @numberOfNickels * 0.05 + @numberOfDimes * 0.1 + @numberOfQuarters * 0.25
+    @cashOnHand = @numberOfNickels * 0.05 \
+                  + @numberOfDimes * 0.1 \
+                  + @numberOfQuarters * 0.25
 
     if @cashOnHand > 0
       @display.setDisplayText("\$%0.2f" % [@cashOnHand])
