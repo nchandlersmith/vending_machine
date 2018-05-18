@@ -2,6 +2,9 @@ require_relative "coin"
 require_relative "display"
 
 class VendingMachine
+  @@colaPrice = 1.0
+  @@chipsPrice = 0.5
+  @@candyPrice = 0.65
 
   def initialize(displayObject)
     @display = displayObject
@@ -46,24 +49,24 @@ class VendingMachine
   end
 
   def colaButtonPressed()
-    priceCheck(@display, 1.0, @cashOnHand)
+    priceCheck(@@colaPrice)
   end
 
   def chipsButtonPressed()
-    priceCheck(@display, 0.5, @cashOnHand)
+    priceCheck(@@chipsPrice)
   end
 
   def candyButtonPressed()
-    priceCheck(@display, 0.65, @cashOnHand)
+    priceCheck(@@candyPrice)
   end
 
 private
 
-    def priceCheck(displayObject, price, deposit)
-      if deposit < price
-        displayObject.setDisplayText("PRICE \$%0.2f" % [price])
+    def priceCheck(price)
+      if @cashOnHand < price
+        @display.setDisplayText("PRICE \$%0.2f" % [price])
       else
-        displayObject.setDisplayText("THANK YOU")
+        @display.setDisplayText("THANK YOU")
       end
     end
 
