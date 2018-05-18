@@ -52,7 +52,11 @@ class VendingMachine
   end
 
   def chipsButtonPressed()
-    @display.setDisplayText("THANK YOU")
+    if @cashOnHand < 0.5
+      @display.setDisplayText("PRICE $0.50")
+    else
+      @display.setDisplayText("THANK YOU")
+    end
   end
 
 end
