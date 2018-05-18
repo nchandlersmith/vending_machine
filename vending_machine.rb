@@ -8,7 +8,7 @@ class VendingMachine
     @numberOfQuarters = 0
     @numberOfDimes = 0
     @numberOfNickels = 0
-    @cashOnHand
+    @cashOnHand = 0
   end
 
   def checkDisplay()
@@ -49,6 +49,10 @@ class VendingMachine
     else
       @display.setDisplayText("THANK YOU")
     end
+  end
+
+  def chipsButtonPressed()
+    @display.setDisplayText("THANK YOU")
   end
 
 end
