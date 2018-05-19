@@ -14,6 +14,7 @@ class TestVendingMachine < Test::Unit::TestCase
     @colaPrice = 1.0
     @chipsPrice = 0.5
     @candyPrice = 0.65
+    @vending_machine.adjustColaStock(1)
   end
 
   # Helper functions
@@ -234,6 +235,17 @@ class TestVendingMachine < Test::Unit::TestCase
       assert_instance_of(Nickel, returnInCoins[3])
       assert_equal(4, returnInCoins.count())
       assert_equal("INSERT COIN", @vending_machine.checkDisplay())
+    end
+
+    def test_VendingMachineSoldOutCola
+      @vending_machine.adjustColaStock(-1)
+      for i in 1..4
+        insertCoinAndVerifyDisplay(@quarter)
+      end
+      @vending_machine.colaButtonPressed()
+      assert_equal("SOLD OUT", @vending_machine.checkDisplay)
+      assert_equal("$1.00", @vending_machine.checkDisplay)
+      assert_equal("$1.00", @vending_machine.checkDisplay)
     end
 
 end

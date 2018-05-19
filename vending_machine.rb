@@ -7,6 +7,9 @@ class VendingMachine
 
   def initialize()
     @displayText = "INSERT COIN"
+    @numberOfCola = 0
+    @numberOfChip = 0
+    @numberOfCandy = 0
     @numberOfQuarters = 0
     @numberOfDimes = 0
     @numberOfNickels = 0
@@ -19,7 +22,7 @@ class VendingMachine
     textOut = @displayText
     if textOut == "THANK YOU"
       @displayText = "INSERT COIN"
-    elsif textOut.include?("PRICE")
+    elsif textOut.include?("PRICE") || textOut == "SOLD OUT"
       @displayText = ("\$%0.2f" % [@cashOnHand])
     end
     textOut
@@ -50,7 +53,11 @@ class VendingMachine
   end
 
   def colaButtonPressed()
-    priceCheck(@@colaPrice)
+    if @numberOfCola > 0
+      priceCheck(@@colaPrice)
+    else #@numberOfCola == 0
+      @displayText = "SOLD OUT"
+    end
   end
 
   def chipsButtonPressed()
@@ -71,6 +78,10 @@ class VendingMachine
     @coinReturn += @coinsAccepted
     @coinsAccepted = []
     @displayText = "INSERT COIN"
+  end
+
+  def adjustColaStock(numberOfCola)
+    @numberOfCola += numberOfCola
   end
 
 private
