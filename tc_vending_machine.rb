@@ -49,6 +49,22 @@ class TestVendingMachine < Test::Unit::TestCase
       assert_equal("INSERT COIN", @vending_machine.checkDisplay())
     elsif @amountMoneyAccepted < price
       assert_equal("PRICE \$%0.2f" % [price], @vending_machine.checkDisplay())
+    else
+      assert_equal("THANK YOU", @vending_machine.checkDisplay())
+      assert_equal("INSERT COIN", @vending_machine.checkDisplay())
+      changeInCoins = @vending_machine.checkCoinReturn()
+      changeInDollars = 0
+      for coin in changeInCoins
+        if coin.is_a?(Quarter)
+          changeInDollars += 0.25
+        elsif coin.is_a?(Dime)
+          changeInDollars += 0.1
+        elsif coin.is_a?(Nickel)
+          changeInDollars += 0.05
+        end
+      end
+      expectedChange = (@amountMoneyAccepted - price).round(2)
+      assert_equal(changeInDollars, expectedChange)
     end
   end
 
@@ -154,6 +170,14 @@ class TestVendingMachine < Test::Unit::TestCase
     insertCoinAndVerifyDisplay(@quarter)
     attemptColaPurchase()
     assert_equal("\$0.40", @vending_machine.checkDisplay())
+  end
+
+  def test_VendingMachineMakeChangePurchaseCandyWith70Cents
+    insertCoinAndVerifyDisplay(@quarter)
+    insertCoinAndVerifyDisplay(@quarter)
+    insertCoinAndVerifyDisplay(@dime)
+    insertCoinAndVerifyDisplay(@dime)
+    attemptCandyPurchase()
   end
 
 end

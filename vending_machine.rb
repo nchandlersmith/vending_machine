@@ -12,6 +12,7 @@ class VendingMachine
     @numberOfDimes = 0
     @numberOfNickels = 0
     @cashOnHand = 0
+    @coinReturn = [Nickel.new()]
   end
 
   def checkDisplay()
@@ -59,11 +60,17 @@ class VendingMachine
     priceCheck(@@candyPrice)
   end
 
+  def checkCoinReturn()
+    @coinReturn
+  end
+
 private
 
     def priceCheck(price)
       if @cashOnHand < price
         @display.setDisplayText("PRICE \$%0.2f" % [price])
+      elsif @cashOnHand == price
+        @display.setDisplayText("THANK YOU")
       else
         @display.setDisplayText("THANK YOU")
       end
