@@ -34,7 +34,7 @@ class VendingMachine
     when 21.21
       @numberOfNickels += 1
     else
-      # Do nothing. Invalid coin entered and will be placed in return.
+      @coinReturn << coinObject
     end
 
     @cashOnHand = @numberOfNickels * 0.05 \

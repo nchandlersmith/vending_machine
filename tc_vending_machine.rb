@@ -101,6 +101,8 @@ class TestVendingMachine < Test::Unit::TestCase
 
   def test_VendingMachineRejectPenny
     insertCoinAndVerifyDisplay(@penny)
+    coinReturned = @vending_machine.checkCoinReturn()
+    assert_instance_of(Penny, coinReturned.pop())
   end
 
   def test_VendingMachineRejectPenniesAcceptValidCoins
