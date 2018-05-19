@@ -21,7 +21,6 @@ class VendingMachine
     else
       textOut = @display.getDisplayText()
     end
-
     textOut
   end
 
