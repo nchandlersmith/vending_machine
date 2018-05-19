@@ -12,6 +12,7 @@ class VendingMachine
     @numberOfNickels = 0
     @cashOnHand = 0
     @coinReturn = []
+    @coinsAccepted = []
   end
 
   def checkDisplay()
@@ -28,10 +29,13 @@ class VendingMachine
     case coinObject.getDiameter()
     when 24.26
       @numberOfQuarters += 1
+      @coinsAccepted << coinObject
     when 17.91
       @numberOfDimes += 1
+      @coinsAccepted << coinObject
     when 21.21
       @numberOfNickels += 1
+      @coinsAccepted << coinObject
     else
       @coinReturn << coinObject
     end
@@ -58,11 +62,14 @@ class VendingMachine
   end
 
   def checkCoinReturn()
-    @coinReturn
+    coinsToReturn = @coinReturn
+    @coinReturn = []
+    coinsToReturn
   end
 
   def requestCoinReturn()
-    @coinReturn << Quarter.new()
+    @coinReturn += @coinsAccepted
+    @coinsAccepted = []
   end
 
 private

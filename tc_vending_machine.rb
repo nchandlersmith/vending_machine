@@ -203,10 +203,21 @@ class TestVendingMachine < Test::Unit::TestCase
 
   def test_VendingMachineReturnCoins1Quarter
     insertCoinAndVerifyDisplay(@quarter)
-    @vending_machine.requestCoinReturn
-    returnInCoins = @vending_machine.checkCoinReturn
+    @vending_machine.requestCoinReturn()
+    returnInCoins = @vending_machine.checkCoinReturn()
     assert_instance_of(Quarter, returnInCoins[0])
     assert_equal(1, returnInCoins.count())
   end
+
+  def test_VendingMachineReturnCoins1Quarter1Dime
+    insertCoinAndVerifyDisplay(@quarter)
+    insertCoinAndVerifyDisplay(@dime)
+    @vending_machine.requestCoinReturn()
+    returnInCoins = @vending_machine.checkCoinReturn()
+    assert_instance_of(Quarter, returnInCoins[0])
+    assert_instance_of(Dime, returnInCoins[1])
+    assert_equal(2, returnInCoins.count())
+  end
+
 
 end
