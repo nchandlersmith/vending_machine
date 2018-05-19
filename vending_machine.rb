@@ -63,8 +63,6 @@ class VendingMachine
 
   def requestCoinReturn()
     @coinReturn << Quarter.new()
-    @coinReturn << Dime.new()
-    @coinReturn << Nickel.new()
   end
 
 private
