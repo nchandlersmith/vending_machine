@@ -1,5 +1,4 @@
 require_relative "coin"
-require_relative "display"
 
 class VendingMachine
   @@colaPrice = 1.0
@@ -7,7 +6,7 @@ class VendingMachine
   @@candyPrice = 0.65
 
   def initialize()
-    @display = Display.new()
+    @displayText = "INSERT COIN"
     @numberOfQuarters = 0
     @numberOfDimes = 0
     @numberOfNickels = 0
@@ -16,11 +15,11 @@ class VendingMachine
   end
 
   def checkDisplay()
-    textOut = @display.getDisplayText()
+    textOut = @displayText
     if textOut == "THANK YOU"
-      @display.setDisplayText("INSERT COIN")
+      @displayText = "INSERT COIN"
     elsif textOut.include?("PRICE")
-      @display.setDisplayText("\$%0.2f" % [@cashOnHand])
+      @displayText = ("\$%0.2f" % [@cashOnHand])
     end
     textOut
   end
@@ -42,9 +41,9 @@ class VendingMachine
                   + @numberOfQuarters * 0.25
 
     if @cashOnHand > 0
-      @display.setDisplayText("\$%0.2f" % [@cashOnHand])
+      @displayText = ("\$%0.2f" % [@cashOnHand])
     else
-      @display.setDisplayText("INSERT COIN")
+      @displayText = "INSERT COIN"
     end
   end
 
@@ -68,11 +67,11 @@ private
 
     def priceCheck(price)
       if @cashOnHand < price
-        @display.setDisplayText("PRICE \$%0.2f" % [price])
+        @displayText = "PRICE \$%0.2f" % [price]
       elsif @cashOnHand == price
-        @display.setDisplayText("THANK YOU")
+        @displayText = "THANK YOU"
       else
-        @display.setDisplayText("THANK YOU")
+        @displayText = "THANK YOU"
         makeChange((@cashOnHand - price).round(2))
       end
     end
