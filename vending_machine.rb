@@ -6,8 +6,8 @@ class VendingMachine
   @@chipsPrice = 0.5
   @@candyPrice = 0.65
 
-  def initialize(displayObject)
-    @display = displayObject
+  def initialize()
+    @display = Display.new()
     @numberOfQuarters = 0
     @numberOfDimes = 0
     @numberOfNickels = 0

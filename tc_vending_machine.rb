@@ -10,8 +10,7 @@ class TestVendingMachine < Test::Unit::TestCase
     @nickel = Nickel.new()
     @dime = Dime.new()
     @quarter = Quarter.new()
-    @display = Display.new()
-    @vending_machine = VendingMachine.new(@display)
+    @vending_machine = VendingMachine.new()
     @amountMoneyAccepted = 0
     @colaPrice = 1.0
     @chipsPrice = 0.5
