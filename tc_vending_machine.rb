@@ -64,7 +64,7 @@ class TestVendingMachine < Test::Unit::TestCase
         end
       end
       expectedChange = (@amountMoneyAccepted - price).round(2)
-      assert_equal(changeInDollars, expectedChange)
+      assert_equal(expectedChange, changeInDollars.round(2))
     end
   end
 
@@ -172,12 +172,29 @@ class TestVendingMachine < Test::Unit::TestCase
     assert_equal("\$0.40", @vending_machine.checkDisplay())
   end
 
-  def test_VendingMachineMakeChangePurchaseCandyWith70Cents
+  def test_VendingMachineMakeChangePurchaseCandyWith70CentsGet5CentsBack
     insertCoinAndVerifyDisplay(@quarter)
     insertCoinAndVerifyDisplay(@quarter)
     insertCoinAndVerifyDisplay(@dime)
     insertCoinAndVerifyDisplay(@dime)
     attemptCandyPurchase()
+  end
+
+  def test_VendingMachineMakeChangePurchaseChipsWith65CentsGet15CentsBack
+    insertCoinAndVerifyDisplay(@quarter)
+    insertCoinAndVerifyDisplay(@quarter)
+    insertCoinAndVerifyDisplay(@dime)
+    insertCoinAndVerifyDisplay(@nickel)
+    attemptChipsPurchase()
+  end
+
+  def test_VendingMachineMakeChangePurchaseColaWith140CentsGet40CentsBack
+    for i in 1..5
+      insertCoinAndVerifyDisplay(@quarter)
+    end
+    insertCoinAndVerifyDisplay(@dime)
+    insertCoinAndVerifyDisplay(@nickel)
+    attemptColaPurchase()
   end
 
 end

@@ -12,7 +12,7 @@ class VendingMachine
     @numberOfDimes = 0
     @numberOfNickels = 0
     @cashOnHand = 0
-    @coinReturn = [Nickel.new()]
+    @coinReturn = []
   end
 
   def checkDisplay()
@@ -73,6 +73,24 @@ private
         @display.setDisplayText("THANK YOU")
       else
         @display.setDisplayText("THANK YOU")
+        makeChange((@cashOnHand - price).round(2))
+      end
+    end
+
+    def makeChange(changeAmount)
+      numberOfQuarters = (changeAmount / 0.25).floor
+      changeAmount = (((changeAmount / 0.25) - numberOfQuarters) * 0.25).round(2)
+      numberOfDimes = (changeAmount / 0.1).floor
+      changeAmount = (((changeAmount / 0.1) - numberOfDimes) * 0.1).round(2)
+      numberOfNickels = (changeAmount / 0.05).floor
+      for i in 1..numberOfQuarters
+        @coinReturn << Quarter.new()
+      end
+      for i in 1..numberOfDimes
+        @coinReturn << Dime.new()
+      end
+      for i in 1..numberOfNickels
+        @coinReturn << Nickel.new()
       end
     end
 
