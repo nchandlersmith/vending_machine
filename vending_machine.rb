@@ -70,6 +70,7 @@ class VendingMachine
   def requestCoinReturn()
     @coinReturn += @coinsAccepted
     @coinsAccepted = []
+    @displayText = "INSERT COIN"
   end
 
 private
