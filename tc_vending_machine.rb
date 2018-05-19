@@ -143,5 +143,17 @@ class TestVendingMachine < Test::Unit::TestCase
     insertCoinAndVerifyDisplay(@quarter)
     attemptCandyPurchase()
   end
-    
+
+  def test_VendingMachineSelectProductNotEnoughMoney
+    insertCoinAndVerifyDisplay(@nickel)
+    attemptChipsPurchase()
+    assert_equal("\$0.05", @vending_machine.checkDisplay())
+    insertCoinAndVerifyDisplay(@dime)
+    attemptCandyPurchase()
+    assert_equal("\$0.15", @vending_machine.checkDisplay())
+    insertCoinAndVerifyDisplay(@quarter)
+    attemptColaPurchase()
+    assert_equal("\$0.40", @vending_machine.checkDisplay())
+  end
+
 end

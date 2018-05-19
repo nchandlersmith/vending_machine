@@ -15,11 +15,11 @@ class VendingMachine
   end
 
   def checkDisplay()
-    if @display.getDisplayText() == "THANK YOU"
-      textOut = "THANK YOU"
+    textOut = @display.getDisplayText()
+    if textOut == "THANK YOU"
       @display.setDisplayText("INSERT COIN")
-    else
-      textOut = @display.getDisplayText()
+    elsif textOut.include?("PRICE")
+      @display.setDisplayText("\$%0.2f" % [@cashOnHand])
     end
     textOut
   end
