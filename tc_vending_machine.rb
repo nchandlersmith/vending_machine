@@ -42,28 +42,32 @@ class TestVendingMachine < Test::Unit::TestCase
   end
 
   def verifyPurchaseAttempt(price)
-    if @amountMoneyAccepted == price
-      assert_equal("THANK YOU", @vending_machine.checkDisplay())
-      assert_equal("INSERT COIN", @vending_machine.checkDisplay())
-    elsif @amountMoneyAccepted < price
+    if @amountMoneyAccepted < price
       assert_equal("PRICE \$%0.2f" % [price], @vending_machine.checkDisplay())
-    else
+    elsif @amountMoneyAccepted >= price
       assert_equal("THANK YOU", @vending_machine.checkDisplay())
       assert_equal("INSERT COIN", @vending_machine.checkDisplay())
-      changeInCoins = @vending_machine.checkCoinReturn()
-      changeInDollars = 0
-      for coin in changeInCoins
-        if coin.is_a?(Quarter)
-          changeInDollars += 0.25
-        elsif coin.is_a?(Dime)
-          changeInDollars += 0.1
-        elsif coin.is_a?(Nickel)
-          changeInDollars += 0.05
-        end
+      if @amountMoneyAccepted > price
+        changeInCoins = @vending_machine.checkCoinReturn()
+        changeInDollars = coinsToDollars(changeInCoins)
+        expectedChange = (@amountMoneyAccepted - price).round(2)
+        assert_equal(expectedChange, changeInDollars.round(2))
       end
-      expectedChange = (@amountMoneyAccepted - price).round(2)
-      assert_equal(expectedChange, changeInDollars.round(2))
     end
+  end
+
+  def coinsToDollars(coinArray)
+    dollars = 0
+    for coin in coinArray
+      if coin.is_a?(Quarter)
+        dollars += 0.25
+      elsif coin.is_a?(Dime)
+        dollars += 0.1
+      elsif coin.is_a?(Nickel)
+        dollars += 0.05
+      end
+    end
+    dollars
   end
 
   def attemptColaPurchase()
@@ -195,6 +199,17 @@ class TestVendingMachine < Test::Unit::TestCase
     insertCoinAndVerifyDisplay(@dime)
     insertCoinAndVerifyDisplay(@nickel)
     attemptColaPurchase()
+  end
+
+  def test_VendingMachineReturnCoins1Quarter
+    insertCoinAndVerifyDisplay(@quarter)
+    insertCoinAndVerifyDisplay(@dime)
+    insertCoinAndVerifyDisplay(@nickel)
+    @vending_machine.requestCoinReturn
+    returnInCoins = @vending_machine.checkCoinReturn
+    assert_instance_of(Quarter, returnInCoins[0])
+    assert_instance_of(Dime, returnInCoins[1])
+    assert_instance_of(Nickel, returnInCoins[2])
   end
 
 end

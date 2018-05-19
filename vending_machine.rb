@@ -35,11 +35,9 @@ class VendingMachine
     else
       @coinReturn << coinObject
     end
-
     @cashOnHand = @numberOfNickels * 0.05 \
                   + @numberOfDimes * 0.1 \
                   + @numberOfQuarters * 0.25
-
     if @cashOnHand > 0
       @displayText = ("\$%0.2f" % [@cashOnHand])
     else
@@ -63,6 +61,12 @@ class VendingMachine
     @coinReturn
   end
 
+  def requestCoinReturn()
+    @coinReturn << Quarter.new()
+    @coinReturn << Dime.new()
+    @coinReturn << Nickel.new()
+  end
+
 private
 
     def priceCheck(price)
@@ -70,7 +74,7 @@ private
         @displayText = "PRICE \$%0.2f" % [price]
       elsif @cashOnHand == price
         @displayText = "THANK YOU"
-      else
+      elsif @cashOnHand > price
         @displayText = "THANK YOU"
         makeChange((@cashOnHand - price).round(2))
       end
