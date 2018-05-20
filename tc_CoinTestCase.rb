@@ -1,10 +1,8 @@
-require_relative "coin"
+require_relative "CoinClass"
 require "test/unit"
 
-# Test coin objects used for testing the vending achine
 class TestCoin < Test::Unit::TestCase
-  # weights obtained from corresponding wikipedia pages
-  # coins are not aware of their value per instructions
+
   def setup
     @penny = Penny.new()
     @nickel = Nickel.new()
@@ -31,4 +29,5 @@ class TestCoin < Test::Unit::TestCase
     assert_equal(24.26, @quarter.getDiameter())
     assert_equal(5.67, @quarter.getMass())
   end
+
 end

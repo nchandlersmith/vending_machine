@@ -1,0 +1,7 @@
+require_relative "VendingMachineTestClass"
+require_relative "tc_CoinTestCase"
+require_relative "tc_VendingMachineAcceptCoinTestCase"
+require_relative "tc_VendingMachineSelectProductTestCase"
+require_relative "tc_VendingMachineMakeChangeTestCase"
+require_relative "tc_VendingMachineReturnCoinsTestCase"
+require_relative "tc_VendingMachineSoldOutTestCase"

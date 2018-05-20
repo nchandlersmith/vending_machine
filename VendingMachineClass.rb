@@ -1,4 +1,4 @@
-require_relative "coin"
+require_relative "CoinClass"
 
 class VendingMachine
   @@colaPrice = 1.0
