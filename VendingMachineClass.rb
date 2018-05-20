@@ -10,10 +10,7 @@ class VendingMachine
     @numberOfCola = 0
     @numberOfChips = 0
     @numberOfCandy = 0
-    @numberOfQuarters = 0
-    @numberOfDimes = 0
-    @numberOfNickels = 0
-    @cashOnHand = 0
+    @amountDeposited = 0
     @coinReturn = []
     @coinsAccepted = []
   end
@@ -23,7 +20,7 @@ class VendingMachine
     if textOut == "THANK YOU"
       @displayText = "INSERT COIN"
     elsif textOut.include?("PRICE") || textOut == "SOLD OUT"
-      @displayText = ("\$%0.2f" % [@cashOnHand])
+      @displayText = ("\$%0.2f" % [@amountDeposited])
     end
     textOut
   end
@@ -31,22 +28,19 @@ class VendingMachine
   def acceptCoin(coinObject)
     case coinObject.getDiameter()
     when 24.26
-      @numberOfQuarters += 1
+      @amountDeposited += 0.25
       @coinsAccepted << coinObject
     when 17.91
-      @numberOfDimes += 1
+      @amountDeposited += 0.1
       @coinsAccepted << coinObject
     when 21.21
-      @numberOfNickels += 1
+      @amountDeposited += 0.05
       @coinsAccepted << coinObject
     else
       @coinReturn << coinObject
     end
-    @cashOnHand = @numberOfNickels * 0.05 \
-                  + @numberOfDimes * 0.1 \
-                  + @numberOfQuarters * 0.25
-    if @cashOnHand > 0
-      @displayText = ("\$%0.2f" % [@cashOnHand])
+    if @amountDeposited > 0
+      @displayText = ("\$%0.2f" % [@amountDeposited])
     else
       @displayText = "INSERT COIN"
     end
@@ -103,13 +97,13 @@ class VendingMachine
 private
 
     def priceCheck(price)
-      if @cashOnHand < price
+      if @amountDeposited < price
         @displayText = "PRICE \$%0.2f" % [price]
-      elsif @cashOnHand == price
+      elsif @amountDeposited == price
         @displayText = "THANK YOU"
-      elsif @cashOnHand > price
+      elsif @amountDeposited > price
         @displayText = "THANK YOU"
-        makeChange((@cashOnHand - price).round(2))
+        makeChange((@amountDeposited - price).round(2))
       end
     end
 
