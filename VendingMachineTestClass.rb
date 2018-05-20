@@ -46,15 +46,18 @@ class VendingMachineTest < Test::Unit::TestCase
   def verifyPurchaseAttempt(price)
     if @amountMoneyAccepted < price
       assert_equal("PRICE \$%0.2f" % [price], @vending_machine.checkDisplay())
-    elsif @amountMoneyAccepted >= price
+    elsif @amountMoneyAccepted == price
       assert_equal("THANK YOU", @vending_machine.checkDisplay())
       assert_equal("INSERT COIN", @vending_machine.checkDisplay())
-      if @amountMoneyAccepted > price
-        changeInCoins = @vending_machine.checkCoinReturn()
-        changeInDollars = coinsToDollars(changeInCoins)
-        expectedChange = (@amountMoneyAccepted - price).round(2)
-        assert_equal(expectedChange, changeInDollars.round(2))
-      end
+      @amountMoneyAccepted = 0
+    else #@amountMoneyAccepted > price
+      assert_equal("THANK YOU", @vending_machine.checkDisplay())
+      assert_equal("INSERT COIN", @vending_machine.checkDisplay())
+      changeInCoins = @vending_machine.checkCoinReturn()
+      changeInDollars = coinsToDollars(changeInCoins)
+      expectedChange = (@amountMoneyAccepted - price).round(2)
+      assert_equal(expectedChange, changeInDollars.round(2))
+      @amountMoneyAccepted = 0
     end
   end
 

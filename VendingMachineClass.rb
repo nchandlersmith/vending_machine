@@ -99,11 +99,13 @@ private
     def priceCheck(price)
       if @amountDeposited < price
         @displayText = "PRICE \$%0.2f" % [price]
-      elsif @amountDeposited >= price
+      elsif @amountDeposited == price
         @displayText = "THANK YOU"
-        if @amountDeposited > price
-          makeChange((@amountDeposited - price).round(2))
-        end
+        @amountDeposited = 0
+      else #@amountDeposited > price
+        @displayText = "THANK YOU"
+        makeChange((@amountDeposited - price).round(2))
+        @amountDeposited = 0
       end
     end
 

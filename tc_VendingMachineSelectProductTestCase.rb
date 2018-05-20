@@ -61,4 +61,21 @@ class SelectProductTest < VendingMachineTest
     assert_equal("\$0.40", @vending_machine.checkDisplay())
   end
 
+  def test_SelectProductDispenseColaChipsCandy
+    for i in 1..4
+      insertCoinAndVerifyDisplay(@quarter)
+    end
+    attemptColaPurchase()
+    insertCoinAndVerifyDisplay(@quarter)
+    insertCoinAndVerifyDisplay(@quarter)
+    insertCoinAndVerifyDisplay(@dime)
+    attemptChipsPurchase()
+    insertCoinAndVerifyDisplay(@quarter)
+    insertCoinAndVerifyDisplay(@nickel)
+    attemptCandyPurchase()
+    insertCoinAndVerifyDisplay(@quarter)
+    insertCoinAndVerifyDisplay(@dime)
+    attemptCandyPurchase()
+  end
+
 end
