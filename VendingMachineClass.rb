@@ -69,7 +69,11 @@ class VendingMachine
   end
 
   def candyButtonPressed()
-    priceCheck(@@candyPrice)
+    if @numberOfCandy > 0
+      priceCheck(@@candyPrice)
+    else #numberOfChips == 0
+      @displayText = "SOLD OUT"
+    end
   end
 
   def checkCoinReturn()
@@ -90,6 +94,10 @@ class VendingMachine
 
   def adjustChipsStock(numberOfChips)
     @numberOfChips += numberOfChips
+  end
+
+  def adjustCandyStock(numberOfCandy)
+    @numberOfCandy += numberOfCandy
   end
 
 private
