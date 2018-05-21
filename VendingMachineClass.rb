@@ -19,7 +19,7 @@ class VendingMachine
   end
 
   def checkDisplay()
-    if @numberOfNickelsOnHand < 2 || @numberOfDimesOnHand < 1
+    if @numberOfNickelsOnHand < 2 && @numberOfDimesOnHand < 1
       @displayText = "EXACT CHANGE ONLY"
     end
     textOut = @displayText
