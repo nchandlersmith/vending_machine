@@ -1,4 +1,4 @@
-require_relative "tc_CoinTestCase"
+require_relative "CoinClass"
 require_relative "VendingMachineTestClass"
 
 class ReturnCoinsTest < VendingMachineTest
