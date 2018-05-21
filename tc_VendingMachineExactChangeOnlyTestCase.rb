@@ -48,7 +48,29 @@ class ExactChangeOnly < VendingMachineTest
     for i in 1..3
       insertCoinAndVerifyDisplay(@quarter)
     end
-    attemptCandyPurchase
+    attemptCandyPurchase()
+    assert_equal("EXACT CHANGE ONLY", @vending_machine.checkDisplay())
+  end
+
+  def test_ExactChangeOnlyAfterChipsPurchaseReturnsDimesBecauseOutOfQuarters
+    @vending_machine.adjustQuarterBank(-10)
+    @vending_machine.adjustDimeBank(-5)
+    @vending_machine.adjustNickelBank(-10)
+    for i in 1..4
+      insertCoinAndVerifyDisplay(@quarter)
+    end
+    attemptChipsPurchase()
+    assert_equal("EXACT CHANGE ONLY", @vending_machine.checkDisplay())
+  end
+
+  def test_ExactChangeOnlyAfterChipsPurchaseReturnsNickelsAndDimes
+    @vending_machine.adjustQuarterBank(-10)
+    @vending_machine.adjustDimeBank(-9)
+    @vending_machine.adjustNickelBank(-6)
+    for i in 1..3
+      insertCoinAndVerifyDisplay(@quarter)
+    end
+    attemptChipsPurchase()
     assert_equal("EXACT CHANGE ONLY", @vending_machine.checkDisplay())
   end
 

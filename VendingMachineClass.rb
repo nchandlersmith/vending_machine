@@ -141,7 +141,7 @@ private
         numberOfDimesRequested = @numberOfDimesOnHand
       end
       changeAmount = (((changeAmount / 0.1) - numberOfDimesRequested) * 0.1).round(2)
-      numberOfNickels = (changeAmount / 0.05).floor
+      numberOfNickels = (changeAmount / 0.05).ceil
       for i in 1..numberOfQuartersRequested
         @coinReturn << Quarter.new()
         @numberOfQuartersOnHand -= 1

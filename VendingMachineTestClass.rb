@@ -51,7 +51,8 @@ class VendingMachineTest < Test::Unit::TestCase
       changeInCoins = @vending_machine.checkCoinReturn()
       changeInDollars = coinsToDollars(changeInCoins)
       expectedChange = (@amountMoneyAccepted - price).round(2)
-      assert_equal(expectedChange, changeInDollars.round(2))
+      assert_equal(expectedChange, changeInDollars.round(2), \
+        "Returned change: #{changeInCoins}")
       @amountMoneyAccepted = 0
     end
   end
