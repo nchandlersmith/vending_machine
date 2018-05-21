@@ -13,9 +13,6 @@ class VendingMachineTest < Test::Unit::TestCase
     @colaPrice = 1.0
     @chipsPrice = 0.5
     @candyPrice = 0.65
-    @vending_machine.adjustColaStock(1)
-    @vending_machine.adjustChipsStock(1)
-    @vending_machine.adjustCandyStock(1)
   end
 
   # Helper functions

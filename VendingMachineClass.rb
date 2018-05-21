@@ -7,15 +7,21 @@ class VendingMachine
 
   def initialize()
     @displayText = "INSERT COIN"
-    @numberOfCola = 0
-    @numberOfChips = 0
-    @numberOfCandy = 0
+    @numberOfCola = 1
+    @numberOfChips = 1
+    @numberOfCandy = 1
     @amountDeposited = 0
+    @numberOfQuartersOnHand = 10
+    @numberOfDimesOnHand = 10
+    @numberOfNickelsOnHand = 10
     @coinReturn = []
     @coinsAccepted = []
   end
 
   def checkDisplay()
+    if @numberOfNickelsOnHand < 2 || @numberOfDimesOnHand < 1
+      @displayText = "EXACT CHANGE ONLY"
+    end
     textOut = @displayText
     if textOut == "THANK YOU"
       @displayText = "INSERT COIN"
@@ -92,6 +98,18 @@ class VendingMachine
 
   def adjustCandyStock(numberOfCandy)
     @numberOfCandy += numberOfCandy
+  end
+
+  def adjustQuarterBank(numberOfQuarters)
+    @numberOfQuartersOnHand += numberOfQuarters
+  end
+
+  def adjustDimeBank(numberOfDimes)
+    @numberOfDimesOnHand += numberOfDimes
+  end
+
+  def adjustNickelBank(numberOfNickels)
+    @numberOfNickelsOnHand += numberOfNickels
   end
 
 private
