@@ -9,6 +9,7 @@ class MakeChangeTest < VendingMachineTest
     insertCoinAndVerifyDisplay(@dime)
     insertCoinAndVerifyDisplay(@dime)
     attemptCandyPurchase()
+    assert_equal("INSERT COIN", @vending_machine.checkDisplay())
   end
 
   def test_VendingMachineMakeChangePurchaseChipsWith65CentsGet15CentsBack
@@ -17,6 +18,7 @@ class MakeChangeTest < VendingMachineTest
     insertCoinAndVerifyDisplay(@dime)
     insertCoinAndVerifyDisplay(@nickel)
     attemptChipsPurchase()
+    assert_equal("INSERT COIN", @vending_machine.checkDisplay())
   end
 
   def test_VendingMachineMakeChangePurchaseColaWith140CentsGet40CentsBack
@@ -26,6 +28,7 @@ class MakeChangeTest < VendingMachineTest
     insertCoinAndVerifyDisplay(@dime)
     insertCoinAndVerifyDisplay(@nickel)
     attemptColaPurchase()
+    assert_equal("INSERT COIN", @vending_machine.checkDisplay())
   end
 
 end

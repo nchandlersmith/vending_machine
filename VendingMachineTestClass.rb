@@ -45,11 +45,9 @@ class VendingMachineTest < Test::Unit::TestCase
       assert_equal("PRICE \$%0.2f" % [price], @vending_machine.checkDisplay())
     elsif @amountMoneyAccepted == price
       assert_equal("THANK YOU", @vending_machine.checkDisplay())
-      assert_equal("INSERT COIN", @vending_machine.checkDisplay())
       @amountMoneyAccepted = 0
     else #@amountMoneyAccepted > price
       assert_equal("THANK YOU", @vending_machine.checkDisplay())
-      assert_equal("INSERT COIN", @vending_machine.checkDisplay())
       changeInCoins = @vending_machine.checkCoinReturn()
       changeInDollars = coinsToDollars(changeInCoins)
       expectedChange = (@amountMoneyAccepted - price).round(2)

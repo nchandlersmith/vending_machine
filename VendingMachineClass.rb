@@ -19,12 +19,13 @@ class VendingMachine
   end
 
   def checkDisplay()
-    if @numberOfNickelsOnHand < 2 && @numberOfDimesOnHand < 1
-      @displayText = "EXACT CHANGE ONLY"
-    end
     textOut = @displayText
     if textOut == "THANK YOU"
-      @displayText = "INSERT COIN"
+      if isExactChangeRequired()
+        @displayText = "EXACT CHANGE ONLY"
+      else
+        @displayText = "INSERT COIN"
+      end
     elsif textOut.include?("PRICE") || textOut == "SOLD OUT"
       @displayText = ("\$%0.2f" % [@amountDeposited])
     end
@@ -106,10 +107,12 @@ class VendingMachine
 
   def adjustDimeBank(numberOfDimes)
     @numberOfDimesOnHand += numberOfDimes
+    if isExactChangeRequired() then @displayText = "EXACT CHANGE ONLY" end
   end
 
   def adjustNickelBank(numberOfNickels)
     @numberOfNickelsOnHand += numberOfNickels
+    if isExactChangeRequired() then @displayText = "EXACT CHANGE ONLY" end
   end
 
 private
@@ -135,13 +138,20 @@ private
       numberOfNickels = (changeAmount / 0.05).floor
       for i in 1..numberOfQuarters
         @coinReturn << Quarter.new()
+        @numberOfQuartersOnHand -= 1
       end
       for i in 1..numberOfDimes
         @coinReturn << Dime.new()
+        @numberOfDimesOnHand -= 1
       end
       for i in 1..numberOfNickels
         @coinReturn << Nickel.new()
+        @numberOfNickelsOnHand -= 1
       end
+    end
+
+    def isExactChangeRequired()
+      @numberOfNickelsOnHand < 2 && @numberOfDimesOnHand < 1
     end
 
 end

@@ -8,6 +8,7 @@ class SelectProductTest < VendingMachineTest
       insertCoinAndVerifyDisplay(@quarter)
     end
     attemptColaPurchase()
+    assert_equal("INSERT COIN", @vending_machine.checkDisplay())
   end
 
   def test_SelectProductDispenseColaAfterMoreMoneyCheckDisplay
@@ -17,12 +18,14 @@ class SelectProductTest < VendingMachineTest
       insertCoinAndVerifyDisplay(@quarter)
     end
     attemptColaPurchase()
+    assert_equal("INSERT COIN", @vending_machine.checkDisplay())
   end
 
   def test_SelectProductDispenseChipsCheckDisplay
     insertCoinAndVerifyDisplay(@quarter)
     insertCoinAndVerifyDisplay(@quarter)
     attemptChipsPurchase()
+    assert_equal("INSERT COIN", @vending_machine.checkDisplay())
   end
 
   def test_SelectProductDispenseChipsAfterMoreMoneyCheckDisplay
@@ -30,6 +33,7 @@ class SelectProductTest < VendingMachineTest
     attemptChipsPurchase()
     insertCoinAndVerifyDisplay(@quarter)
     attemptChipsPurchase()
+    assert_equal("INSERT COIN", @vending_machine.checkDisplay())
   end
 
   def test_SelectProductDispenseCandyCheckDisplay
@@ -38,6 +42,7 @@ class SelectProductTest < VendingMachineTest
     insertCoinAndVerifyDisplay(@dime)
     insertCoinAndVerifyDisplay(@nickel)
     attemptCandyPurchase()
+    assert_equal("INSERT COIN", @vending_machine.checkDisplay())
   end
 
   def test_SelectProductDisenseCandyAfterMoreMoneyCheckDisplay
@@ -47,6 +52,7 @@ class SelectProductTest < VendingMachineTest
     attemptCandyPurchase()
     insertCoinAndVerifyDisplay(@quarter)
     attemptCandyPurchase()
+    assert_equal("INSERT COIN", @vending_machine.checkDisplay())
   end
 
   def test_SelectProductNotEnoughMoneyCheckDisplay
@@ -66,16 +72,19 @@ class SelectProductTest < VendingMachineTest
       insertCoinAndVerifyDisplay(@quarter)
     end
     attemptColaPurchase()
+    assert_equal("INSERT COIN", @vending_machine.checkDisplay())
     insertCoinAndVerifyDisplay(@quarter)
     insertCoinAndVerifyDisplay(@quarter)
     insertCoinAndVerifyDisplay(@dime)
     attemptChipsPurchase()
+    assert_equal("INSERT COIN", @vending_machine.checkDisplay())
     insertCoinAndVerifyDisplay(@quarter)
     insertCoinAndVerifyDisplay(@nickel)
     attemptCandyPurchase()
     insertCoinAndVerifyDisplay(@quarter)
     insertCoinAndVerifyDisplay(@dime)
     attemptCandyPurchase()
+    assert_equal("INSERT COIN", @vending_machine.checkDisplay())
   end
 
 end
