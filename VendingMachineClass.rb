@@ -131,16 +131,22 @@ private
     end
 
     def makeChange(changeAmount)
-      numberOfQuarters = (changeAmount / 0.25).floor
-      changeAmount = (((changeAmount / 0.25) - numberOfQuarters) * 0.25).round(2)
-      numberOfDimes = (changeAmount / 0.1).floor
-      changeAmount = (((changeAmount / 0.1) - numberOfDimes) * 0.1).round(2)
+      numberOfQuartersRequested = (changeAmount / 0.25).floor
+      if numberOfQuartersRequested > @numberOfQuartersOnHand
+        numberOfQuartersRequested = @numberOfQuartersOnHand
+      end
+      changeAmount = (((changeAmount / 0.25) - numberOfQuartersRequested) * 0.25).round(2)
+      numberOfDimesRequested = (changeAmount / 0.1).floor
+      if numberOfDimesRequested > @numberOfDimesOnHand
+        numberOfDimesRequested = @numberOfDimesOnHand
+      end
+      changeAmount = (((changeAmount / 0.1) - numberOfDimesRequested) * 0.1).round(2)
       numberOfNickels = (changeAmount / 0.05).floor
-      for i in 1..numberOfQuarters
+      for i in 1..numberOfQuartersRequested
         @coinReturn << Quarter.new()
         @numberOfQuartersOnHand -= 1
       end
-      for i in 1..numberOfDimes
+      for i in 1..numberOfDimesRequested
         @coinReturn << Dime.new()
         @numberOfDimesOnHand -= 1
       end

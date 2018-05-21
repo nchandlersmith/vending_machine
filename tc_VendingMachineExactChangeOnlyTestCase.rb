@@ -42,4 +42,14 @@ class ExactChangeOnly < VendingMachineTest
     assert_equal("EXACT CHANGE ONLY", @vending_machine.checkDisplay())
   end
 
+  def test_ExactChangeOnlyAfterCandyPurchaseReturns2NickelsBecauseMachineOutOfDimes
+    @vending_machine.adjustDimeBank(-10)
+    @vending_machine.adjustNickelBank(-7)
+    for i in 1..3
+      insertCoinAndVerifyDisplay(@quarter)
+    end
+    attemptCandyPurchase
+    assert_equal("EXACT CHANGE ONLY", @vending_machine.checkDisplay())
+  end
+
 end
