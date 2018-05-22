@@ -1,6 +1,7 @@
 # Vending Machine Code Kata
 - Vending machine was implemented according to [these features](https://github.com/PillarTechnology/kata-vending-machine)
 - This project was tested and written in Ruby 2.4.4 on a Windows 10 machine.
+- This project was also tested on Unbuntu 16.04. Ruby installed using [these instructions](https://www.digitalocean.com/community/tutorials/how-to-install-ruby-and-set-up-a-local-programming-environment-on-ubuntu-16-04)
 - Download ruby for Windows [here](https://rubyinstaller.org/downloads/).
 - To run the test suite run the following from the terminal `ruby ts_VendingMachineTestSuite.rb` from the cloned repo folder.
 
