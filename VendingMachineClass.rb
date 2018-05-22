@@ -1,4 +1,5 @@
 require_relative "CoinClass"
+require "bigdecimal"
 
 class VendingMachine
   @@colaPrice = 1.0
@@ -56,7 +57,7 @@ class VendingMachine
   def colaButtonPressed()
     if @numberOfCola > 0
       priceCheck(@@colaPrice)
-    else #@numberOfCola == 0
+    else
       @displayText = "SOLD OUT"
     end
   end
@@ -64,7 +65,7 @@ class VendingMachine
   def chipsButtonPressed()
     if @numberOfChips > 0
       priceCheck(@@chipsPrice)
-    else #numberOfChips == 0
+    else
       @displayText = "SOLD OUT"
     end
   end
@@ -72,7 +73,7 @@ class VendingMachine
   def candyButtonPressed()
     if @numberOfCandy > 0
       priceCheck(@@candyPrice)
-    else #numberOfChips == 0
+    else
       @displayText = "SOLD OUT"
     end
   end
@@ -131,29 +132,26 @@ private
     end
 
     def makeChange(changeAmount)
-      numberOfQuartersRequested = (changeAmount / 0.25).floor
-      if numberOfQuartersRequested > @numberOfQuartersOnHand
-        numberOfQuartersRequested = @numberOfQuartersOnHand
+      changeAmount, @numberOfQuartersOnHand = \
+      placeCoinsInReturn(changeAmount, 0.25, @numberOfQuartersOnHand, Quarter.new())
+      changeAmount, @numberOfDimesOnHand = \
+      placeCoinsInReturn(changeAmount, 0.1, @numberOfDimesOnHand, Dime.new())
+      changeAmount, @numberOfNickelsOnHand = \
+      placeCoinsInReturn(changeAmount, 0.05, @numberOfNickelsOnHand, Nickel.new())
+    end
+
+    def placeCoinsInReturn(changeAmountRemaining, coinValue, numberCoinsOnHand, coinObject)
+      numberCoinsRequested = (changeAmountRemaining / coinValue).round(3).floor
+      if numberCoinsRequested > numberCoinsOnHand
+        numberCoinsRequested = numberCoinsOnHand
       end
-      changeAmount = (((changeAmount / 0.25) - numberOfQuartersRequested) * 0.25).round(2)
-      numberOfDimesRequested = (changeAmount / 0.1).floor
-      if numberOfDimesRequested > @numberOfDimesOnHand
-        numberOfDimesRequested = @numberOfDimesOnHand
+      for i in 1..numberCoinsRequested
+        @coinReturn << coinObject
+        numberCoinsOnHand -= 1
       end
-      changeAmount = (((changeAmount / 0.1) - numberOfDimesRequested) * 0.1).round(2)
-      numberOfNickels = (changeAmount / 0.05).ceil
-      for i in 1..numberOfQuartersRequested
-        @coinReturn << Quarter.new()
-        @numberOfQuartersOnHand -= 1
-      end
-      for i in 1..numberOfDimesRequested
-        @coinReturn << Dime.new()
-        @numberOfDimesOnHand -= 1
-      end
-      for i in 1..numberOfNickels
-        @coinReturn << Nickel.new()
-        @numberOfNickelsOnHand -= 1
-      end
+      amountChangeRemainingOut = \
+      (((changeAmountRemaining / coinValue) - numberCoinsRequested) * coinValue).round(2)
+      return amountChangeRemainingOut, numberCoinsOnHand
     end
 
     def isExactChangeRequired()
