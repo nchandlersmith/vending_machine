@@ -34,16 +34,10 @@ class VendingMachine
   end
 
   def acceptCoin(coinObject)
-    case coinObject.getDiameter()
-    when 24.26
-      @amountDeposited += 0.25
+    acceptCoin, coinValue = identifyCoin(coinObject.getDiameter(),coinMass = coinObject.getMass())
+    if acceptCoin
       @coinsAccepted << coinObject
-    when 17.91
-      @amountDeposited += 0.1
-      @coinsAccepted << coinObject
-    when 21.21
-      @amountDeposited += 0.05
-      @coinsAccepted << coinObject
+      @amountDeposited += coinValue
     else
       @coinReturn << coinObject
     end
@@ -132,12 +126,9 @@ private
     end
 
     def makeChange(changeAmount)
-      changeAmount, @numberOfQuartersOnHand = \
-      placeCoinsInReturn(changeAmount, 0.25, @numberOfQuartersOnHand, Quarter.new())
-      changeAmount, @numberOfDimesOnHand = \
-      placeCoinsInReturn(changeAmount, 0.1, @numberOfDimesOnHand, Dime.new())
-      changeAmount, @numberOfNickelsOnHand = \
-      placeCoinsInReturn(changeAmount, 0.05, @numberOfNickelsOnHand, Nickel.new())
+      changeAmount, @numberOfQuartersOnHand = placeCoinsInReturn(changeAmount, 0.25, @numberOfQuartersOnHand, Quarter.new())
+      changeAmount, @numberOfDimesOnHand = placeCoinsInReturn(changeAmount, 0.1, @numberOfDimesOnHand, Dime.new())
+      changeAmount, @numberOfNickelsOnHand = placeCoinsInReturn(changeAmount, 0.05, @numberOfNickelsOnHand, Nickel.new())
     end
 
     def placeCoinsInReturn(changeAmountRemaining, coinValue, numberCoinsOnHand, coinObject)
@@ -149,13 +140,24 @@ private
         @coinReturn << coinObject
         numberCoinsOnHand -= 1
       end
-      amountChangeRemainingOut = \
-      (((changeAmountRemaining / coinValue) - numberCoinsRequested) * coinValue).round(2)
+      amountChangeRemainingOut = (((changeAmountRemaining / coinValue) - numberCoinsRequested) * coinValue).round(2)
       return amountChangeRemainingOut, numberCoinsOnHand
     end
 
     def isExactChangeRequired()
       @numberOfNickelsOnHand < 2 && @numberOfDimesOnHand < 1
+    end
+
+    def identifyCoin(diameter, mass)
+      if diameter == 24.26 && mass == 5.67
+        return true, 0.25
+      elsif diameter == 17.91 && mass == 2.5
+        return true, 0.1
+      elsif diameter == 21.21 && mass == 5
+        return true, 0.05
+      else
+        return false, 0
+      end
     end
 
 end
