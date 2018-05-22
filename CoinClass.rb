@@ -1,5 +1,5 @@
 class Coin
-  
+
   def initialize(diameterIn, massIn)
     @diameter = diameterIn
     @mass = massIn
@@ -47,6 +47,15 @@ class Quarter < Coin
   def initialize()
     # assuming current design of cupronickel
     @diameter = 24.26
+    @mass = 5.67
+  end
+
+end
+
+class FakeQuarter < Coin
+
+  def initialize()
+    @diameter = 24.25
     @mass = 5.67
   end
 

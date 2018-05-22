@@ -35,4 +35,11 @@ class AcceptCoinTest < VendingMachineTest
     insertCoinAndVerifyDisplay(@penny)
   end
 
+  def test_rejectFakeCoin
+    fakeQuarter = FakeQuarter.new()
+    insertCoinAndVerifyDisplay(fakeQuarter)
+    coinReturned = @vending_machine.checkCoinReturn()
+    assert_instance_of(FakeQuarter, coinReturned.pop())
+  end
+
 end
