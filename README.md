@@ -1,4 +1,4 @@
-# Vending Machine Code kata
+# Vending Machine Code Kata
 - Vending machine was implemented according to [these features](https://github.com/PillarTechnology/kata-vending-machine)
 - This project was tested and written in Ruby 2.4.4 on a Windows 10 machine.
 - Download ruby for Windows [here](https://rubyinstaller.org/downloads/).
