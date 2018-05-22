@@ -34,7 +34,7 @@ class VendingMachine
   end
 
   def acceptCoin(coinObject)
-    acceptCoin, coinValue = identifyCoin(coinObject.getDiameter(),coinMass = coinObject.getMass())
+    acceptCoin, coinValue = identifyCoin(coinObject.getDiameter(), coinObject.getMass())
     if acceptCoin
       @coinsAccepted << coinObject
       @amountDeposited += coinValue
