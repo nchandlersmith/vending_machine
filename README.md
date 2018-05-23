@@ -11,7 +11,7 @@ This repo contains the following files:
 - __ts_VendingMachineTestSuite.rb:__ test suite written in Ruby Test::Unit.
 - __CoinClass.rb:__ class definition for the coins. _Note: the coins nor the machine know their value directly. Value is deduced from coin diameter and mass._
 - __tc_CoinTestCase.rb__ Test case for testing the coin class and is ran with the test suite.
-- __VendingMachine<<Feature>>TestCase.rb:__ Six test cases are included as part of the test suite. Each test case corresponds to a feature.
+- __VendingMachine`Feature`TestCase.rb:__ Six test cases are included as part of the test suite. Each test case corresponds to a feature.
 - __VendingMachineTestClass.rb:__ Base class from which the feature test case classes inherit.
 
 ## Test results
