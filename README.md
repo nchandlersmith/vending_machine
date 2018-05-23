@@ -1,7 +1,7 @@
 # Vending Machine Code Kata
-- Vending machine was implemented according to [these features](https://github.com/PillarTechnology/kata-vending-machine)
+- Vending machine was implemented according to [these features](https://github.com/PillarTechnology/kata-vending-machine).
 - This project was tested and written in Ruby 2.4.4 on a Windows 10 machine.
-- This project was also tested on Unbuntu 16.04. Ruby installed using [these instructions](https://www.digitalocean.com/community/tutorials/how-to-install-ruby-and-set-up-a-local-programming-environment-on-ubuntu-16-04)
+- This project was also tested on Unbuntu 16.04. Ruby installed using [these instructions](https://www.digitalocean.com/community/tutorials/how-to-install-ruby-and-set-up-a-local-programming-environment-on-ubuntu-16-04).
 - Download ruby for Windows [here](https://rubyinstaller.org/downloads/).
 - To run the test suite run the following from the terminal `ruby ts_VendingMachineTestSuite.rb` from the cloned repo folder.
 
@@ -11,7 +11,7 @@ This repo contains the following files:
 - __ts_VendingMachineTestSuite.rb:__ test suite written in Ruby Test::Unit.
 - __CoinClass.rb:__ class definition for the coins. _Note: the coins nor the machine know their value directly. Value is deduced from coin diameter and mass._
 - __tc_CoinTestCase.rb__ Test case for testing the coin class and is ran with the test suite.
-- __VendingMachine<Feature>TestCase.rb:__ Six test cases are included as part of the test suite. Each test case corresponds to a feature.
+- __VendingMachine<<Feature>>TestCase.rb:__ Six test cases are included as part of the test suite. Each test case corresponds to a feature.
 - __VendingMachineTestClass.rb:__ Base class from which the feature test case classes inherit.
 
 ## Test results
